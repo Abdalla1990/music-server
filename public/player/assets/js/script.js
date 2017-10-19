@@ -78,6 +78,29 @@ dropZone.on('drop', function(e) {
     dropZone.addClass('hidden');
 });
 
+var fileUpload = $('#input');
+
+fileUpload.on('change', function(event) {
+
+    event.preventDefault();
+
+    var files = fileUpload.get(0).files;
+    for (var j = 0; j < files.length; j++) {
+
+        if (files[j].type.match(/audio\/(mp3|mpeg)/)) {
+
+            getID3Data(files[j], function(song) {
+                allTracks.push(song);
+                playlist.push(song);
+                $('#list').append($(returnTrackHTML(song, playlist.length - 1)));
+            });
+        }
+    }
+});
+
+
+
+
 
 function traverseFileTree(item, path) {
     path = path || "";
@@ -123,8 +146,8 @@ function getTags(file, done) {
         var tags = ID3.getAllTags(file.name);
 
         result.artist = tags.artist || "Unknown Artist";
-        result.title = tags.title || "Unknown";
-        result.album = tags.album || "";
+        result.title = tags.title || "Unknown Title";
+        result.album = tags.album || "UnKnown Album";
         if (tags.picture && tags.picture.data && tags.picture.data.length) {
             result.picture = tags.picture;
             getImageSource(result.picture, function(imageSource) {
@@ -277,7 +300,7 @@ wavesurfer.on('finish', function() {
     }
     // In case shuffle is off.
     else {
-
+        //expanding the playlist
         var expandBar = $('#expand-bar');
 
         if (expandBar.hasClass('hidden')) {
