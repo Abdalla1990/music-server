@@ -10,7 +10,21 @@ var allTracks = [],
 
 startPlayerWhenReady();
 
+document.addEventListener("keydown", backspace); //or however you are calling your method
+function backspace(event) {
+    var KeyID = event.keyCode;
+    switch (KeyID) {
+        case 32:
 
+
+            wavesurfer.playPause();
+
+
+            break;
+        default:
+            break;
+    }
+}
 
 
 var dropZone = $('#drop-zone'),
@@ -396,6 +410,8 @@ $('#play-button').on('click', function() {
 $('#pause-button').on('click', function() {
     wavesurfer.playPause();
 });
+
+
 
 $('#stop-button').on('click', function() {
     wavesurfer.stop();

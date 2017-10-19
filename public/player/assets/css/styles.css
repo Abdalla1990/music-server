@@ -158,6 +158,10 @@ html {
     cursor: pointer;
 }
 
+.play-button div {
+    color: rgb(0, 0, 0);
+}
+
 .upload {
     -webkit-flex: 2;
     flex: 2;
